@@ -175,4 +175,12 @@ class AppColors {
   //----------------------------ActionButton----------------------------//
   //--------------------------------------------------------------------//
 
+  //--------------------------------------------------------------------//
+  //-----------------------------Dex Button-----------------------------//
+  //--------------------------------------------------------------------//
+
+  static const Color startButton = Color(0xff0F6594);
+  static const Color startButtonBorder = Color(0xff3B557B);
+  static const Color selectButton = Color(0xffA51A17);
+  static const Color selectButtonBorder = Color(0xffBC1F21);
 }
