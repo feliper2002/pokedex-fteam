@@ -18,7 +18,7 @@ class _PokedexState extends State<Pokedex> {
         children: const [
           Directional(
             top: 400,
-            left: 200,
+            left: 50,
           ),
         ],
       ),
