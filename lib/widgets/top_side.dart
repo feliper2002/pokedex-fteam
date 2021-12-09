@@ -28,7 +28,7 @@ class TopSide extends StatelessWidget {
       left: left,
       right: right,
       child: ClipPath(
-        clipper: TopClip(),
+        clipper: _TopClip(),
         child: Container(
           height: height,
           width: width,
@@ -39,7 +39,7 @@ class TopSide extends StatelessWidget {
   }
 }
 
-class TopClip extends CustomClipper<Path> {
+class _TopClip extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     // final insideRectangle = Rect.fromLTWH(
@@ -58,7 +58,7 @@ class TopClip extends CustomClipper<Path> {
           ..lineTo(size.width * .41, size.height)
           ..lineTo(size.width * .57, size.height * .5)
           ..quadraticBezierTo(
-            size.width * .58,
+            size.width * .586,
             size.height * .47,
             size.width * .6,
             size.height * .47,
