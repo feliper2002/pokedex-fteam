@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_screen/colors/colors.dart';
-import 'package:pokedex_screen/widgets/directional.dart';
-import 'package:pokedex_screen/widgets/green_button.dart';
-import 'package:pokedex_screen/widgets/lamp.dart';
-import 'package:pokedex_screen/widgets/light_lamp.dart';
-import 'package:pokedex_screen/widgets/screen.dart';
-import 'package:pokedex_screen/widgets/screen_frame.dart';
-import 'package:pokedex_screen/widgets/top_side.dart';
 
 class Pokedex extends StatefulWidget {
   const Pokedex({Key? key}) : super(key: key);
@@ -18,15 +11,11 @@ class Pokedex extends StatefulWidget {
 class _PokedexState extends State<Pokedex> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.screenFrameBorder,
       body: Stack(
-        children: const [
-          // TopSide(
-          //   top: 200,
-          //   left: 10,
-          // ),
-        ],
+        children: const [],
       ),
     );
   }
