@@ -30,31 +30,25 @@ class SoundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: left,
-      right: right,
-      top: top,
-      bottom: bottom,
+    return Container(
+      height: bigHeight,
+      width: bigWidth,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(bigWidth * 0.17),
+        gradient: LinearGradient(colors: colorsBack),
+      ),
       child: Container(
-        height: bigHeight,
-        width: bigWidth,
+        height: smallHeight,
+        width: smallWidth,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(bigWidth * 0.17),
-          gradient: LinearGradient(colors: colorsBack),
+          borderRadius: BorderRadius.circular(smallWidth * 0.2),
+          gradient: LinearGradient(colors: colorsFront),
         ),
-        child: Container(
-          height: smallHeight,
-          width: smallWidth,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(smallWidth * 0.2),
-            gradient: LinearGradient(colors: colorsFront),
-          ),
-          child: CircleAvatar(
-            backgroundColor: circleColor,
-            radius: 7.75,
-          ),
+        child: CircleAvatar(
+          backgroundColor: circleColor,
+          radius: 7.75,
         ),
       ),
     );

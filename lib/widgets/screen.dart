@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_screen/colors/colors.dart';
 
-class ScreenButton extends StatelessWidget {
-  final double size;
+class Screen extends StatelessWidget {
+  final double height;
+  final double width;
   final double? top;
   final double? bottom;
   final double? left;
   final double? right;
   final Color color;
-  const ScreenButton({
+  const Screen({
     Key? key,
-    this.size = 16,
+    this.height = 163,
+    this.width = 235,
     this.top,
     this.bottom,
     this.left,
     this.right,
-    this.color = AppColors.screenButton,
+    this.color = AppColors.screen,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: color,
-      radius: (size * .5),
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(width * .043),
+      ),
     );
   }
 }
