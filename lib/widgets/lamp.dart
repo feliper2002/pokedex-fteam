@@ -36,6 +36,7 @@ class Lamp extends StatelessWidget {
       child: Container(
         height: size,
         width: size,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: AppColors.lampFrame,
           shape: BoxShape.circle,
@@ -43,6 +44,7 @@ class Lamp extends StatelessWidget {
         ),
         child: LayoutBuilder(builder: (context, constraints) {
           return Container(
+            alignment: const Alignment(-.38, -.29),
             height: constraints.maxHeight * .77,
             width: constraints.maxWidth * .77,
             decoration: BoxDecoration(
