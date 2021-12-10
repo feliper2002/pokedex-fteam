@@ -6,7 +6,7 @@ import 'package:pokedex_screen/widgets/directional.dart';
 import 'package:pokedex_screen/widgets/green_button.dart';
 import 'package:pokedex_screen/widgets/hinge/hinge_small_rectangle.dart';
 import 'package:pokedex_screen/widgets/hinge/middle_hinge.dart';
-import 'package:pokedex_screen/widgets/hinge/top_hinge.dart';
+import 'package:pokedex_screen/widgets/hinge/extreme_hinge.dart';
 import 'package:pokedex_screen/widgets/lamp.dart';
 import 'package:pokedex_screen/widgets/light_lamp.dart';
 import 'package:pokedex_screen/widgets/pikachu/eye.dart';
@@ -35,11 +35,13 @@ class _PokedexState extends State<Pokedex> {
           TopSide(
             top: 0,
             height: size.height * .23,
+            width: size.width,
             color: AppColors.topBorderShadow,
           ),
           TopSide(
             top: 0,
             height: size.height * .216,
+            width: size.width,
           ),
           Lamp(
             top: size.height * .039,
@@ -78,13 +80,18 @@ class _PokedexState extends State<Pokedex> {
           AnalogicButton(
             bottom: size.height * .18,
             left: size.width * .07,
+            size: size.height * .087,
           ),
           DexButton(
+            height: size.height * .012,
+            width: size.width * .0986,
             bottom: size.height * .26,
             left: size.width * .27,
             type: ButtonType.select,
           ),
           DexButton(
+            height: size.height * .012,
+            width: size.width * .0986,
             bottom: size.height * .26,
             left: size.width * .45,
             type: ButtonType.start,
@@ -92,23 +99,38 @@ class _PokedexState extends State<Pokedex> {
           GreenButton(
             bottom: size.height * .126,
             left: size.width * .264,
+            height: size.height * .08,
+            width: size.width * .264,
           ),
           Directional(
             right: size.width * .136,
             bottom: size.height * .109,
+            width: size.width * .272,
+            height: size.height * .148,
           ),
-          TopHinge(
+          ExtremeHinge(
             height: size.height * .124,
+            width: size.width * .09,
             top: size.height * .1019,
             right: 0,
+            type: HingeType.top,
           ),
           MiddleHinge(
             height: size.height * .613,
+            width: size.width * .09,
             top: size.height * .23,
             right: 0,
           ),
+          ExtremeHinge(
+            height: size.height * .145,
+            width: size.width * .09,
+            bottom: 0,
+            right: 0,
+            type: HingeType.bottom,
+          ),
           HingeSmallRectangle(
             height: size.height * .0075,
+            width: size.width * .09,
             top: size.height * .847,
             right: 0,
           ),
