@@ -21,8 +21,8 @@ class LightLamp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size * .15,
-      width: size * .15,
+      height: size,
+      width: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: smallCircleGradient,

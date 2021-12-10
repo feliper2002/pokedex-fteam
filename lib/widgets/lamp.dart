@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_screen/colors/colors.dart';
 
-import 'light_lamp.dart';
-
 class Lamp extends StatelessWidget {
   final double size;
   final Color borderColor;

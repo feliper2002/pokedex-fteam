@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_screen/colors/colors.dart';
 
-class PikachuFace extends StatelessWidget {
+enum BodyType { face, leftArm, rightArm }
+
+class PikachuBody extends StatelessWidget {
   final double height;
   final double width;
   final double? top;
@@ -9,7 +11,8 @@ class PikachuFace extends StatelessWidget {
   final double? left;
   final double? right;
   final Color color;
-  const PikachuFace({
+  final BodyType type;
+  const PikachuBody({
     Key? key,
     this.height = 67,
     this.width = 85,
@@ -18,10 +21,32 @@ class PikachuFace extends StatelessWidget {
     this.left,
     this.right,
     this.color = AppColors.pikachuMainColor,
+    this.type = BodyType.face,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double bodyHeight;
+    double bodyWidth;
+
+    switch (type) {
+      case BodyType.face:
+        bodyHeight = 67;
+        bodyWidth = 85;
+        break;
+      case BodyType.leftArm:
+        bodyHeight = 19.8;
+        bodyWidth = 43.17;
+        break;
+      case BodyType.rightArm:
+        bodyHeight = 25.6;
+        bodyWidth = 39;
+        break;
+      default:
+        bodyHeight = height;
+        bodyWidth = width;
+    }
+
     return Positioned(
       top: top,
       bottom: bottom,
@@ -30,8 +55,8 @@ class PikachuFace extends StatelessWidget {
       child: CustomPaint(
         painter: _FacePaint(),
         child: SizedBox(
-          height: height,
-          width: width,
+          height: bodyHeight,
+          width: bodyWidth,
         ),
       ),
     );
