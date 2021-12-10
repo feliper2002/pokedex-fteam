@@ -32,6 +32,7 @@ class _PokedexState extends State<Pokedex> {
       backgroundColor: AppColors.screenFrameBorder,
       body: Stack(
         children: [
+          ///////////////////////// [Top Side] ////////////////////
           TopSide(
             top: 0,
             height: size.height * .23,
@@ -43,12 +44,14 @@ class _PokedexState extends State<Pokedex> {
             height: size.height * .216,
             width: size.width,
           ),
+          ///////////////////////// [Top Side] ////////////////////
           Lamp(
             top: size.height * .039,
             left: size.width * .077,
             size: size.height * .1319,
             lightWidget: LightLamp(size: size.height * .02),
           ),
+          ///////////////////////// [Led row] ////////////////////
           Led(
             size: size.height * .018,
             top: size.height * .037,
@@ -67,6 +70,7 @@ class _PokedexState extends State<Pokedex> {
             left: size.width * .48,
             type: LedType.green,
           ),
+          ///////////////////////// [Led row] ////////////////////
           ScreenFrame(
             height: size.height * .3538,
             width: size.width * .768,
@@ -82,6 +86,7 @@ class _PokedexState extends State<Pokedex> {
             left: size.width * .07,
             size: size.height * .087,
           ),
+          ///////////////////////// [Dex button row] ////////////////////
           DexButton(
             height: size.height * .012,
             width: size.width * .0986,
@@ -96,6 +101,7 @@ class _PokedexState extends State<Pokedex> {
             left: size.width * .45,
             type: ButtonType.start,
           ),
+          ///////////////////////// [Dex button row] ////////////////////
           GreenButton(
             bottom: size.height * .126,
             left: size.width * .264,
@@ -108,6 +114,7 @@ class _PokedexState extends State<Pokedex> {
             width: size.width * .272,
             height: size.height * .148,
           ),
+          ///////////////////////// [Hinge] ////////////////////
           ExtremeHinge(
             height: size.height * .124,
             width: size.width * .09,
@@ -134,6 +141,7 @@ class _PokedexState extends State<Pokedex> {
             top: size.height * .847,
             right: 0,
           ),
+          ///////////////////////// [Hinge] ////////////////////
         ],
       ),
     );
