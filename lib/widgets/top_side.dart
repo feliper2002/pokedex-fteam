@@ -11,7 +11,7 @@ class TopSide extends StatelessWidget {
   final Color color;
   const TopSide({
     Key? key,
-    this.height = 144,
+    this.height = 156,
     this.width = 375,
     this.top,
     this.bottom,
@@ -28,11 +28,19 @@ class TopSide extends StatelessWidget {
       left: left,
       right: right,
       child: ClipPath(
-        clipper: _TopClip(),
+        clipper: _TopClipShadow(),
         child: Container(
           height: height,
           width: width,
-          color: color,
+          color: AppColors.topBorderShadow,
+          child: ClipPath(
+            clipper: _TopClip(),
+            child: Container(
+              height: height,
+              width: width,
+              color: color,
+            ),
+          ),
         ),
       ),
     );
@@ -44,19 +52,41 @@ class _TopClip extends CustomClipper<Path> {
   Path getClip(Size size) {
     var path = Path()
           ..moveTo(0, 0)
-          ..lineTo(0, size.height)
-          ..lineTo(size.width * .41, size.height)
-          ..lineTo(size.width * .57, size.height * .5)
+          ..lineTo(0, size.height * .92)
+          ..lineTo(size.width * .41, size.height * .92)
+          ..lineTo(size.width * .57, size.height * .46)
           // rounded corner
           ..quadraticBezierTo(
             size.width * .586,
-            size.height * .47,
+            size.height * .43,
             size.width * .6,
-            size.height * .47,
+            size.height * .43,
           )
-          //
-          ..lineTo(size.width * 93, size.height * .47)
-          ..lineTo(size.width * .93, size.height)
+          ..lineTo(size.width * .93, size.height * .43)
+          ..lineTo(size.width * .93, size.height * .92)
+          ..lineTo(size.width, size.height * .92)
+          ..lineTo(size.width, 0)
+        //
+        ;
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return this != oldClipper;
+  }
+}
+
+class _TopClipShadow extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path()
+          ..moveTo(0, 0)
+          ..lineTo(0, size.height)
+          ..lineTo(size.width * .43, size.height)
+          ..lineTo(size.width * .6, size.height * .53)
+          ..lineTo(size.width * .9, size.height * .53)
+          ..lineTo(size.width * .9, size.height)
           ..lineTo(size.width, size.height)
           ..lineTo(size.width, 0)
         //

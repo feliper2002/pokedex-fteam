@@ -37,12 +37,6 @@ class _PokedexState extends State<Pokedex> {
             top: 0,
             height: size.height * .23,
             width: size.width,
-            color: AppColors.topBorderShadow,
-          ),
-          TopSide(
-            top: 0,
-            height: size.height * .216,
-            width: size.width,
           ),
           ///////////////////////// [Top Side] ////////////////////
           Lamp(
@@ -117,27 +111,27 @@ class _PokedexState extends State<Pokedex> {
           ///////////////////////// [Hinge] ////////////////////
           ExtremeHinge(
             height: size.height * .124,
-            width: size.width * .09,
+            width: size.width * .1,
             top: size.height * .1019,
             right: 0,
             type: HingeType.top,
           ),
           MiddleHinge(
             height: size.height * .613,
-            width: size.width * .09,
+            width: size.width * .1,
             top: size.height * .23,
             right: 0,
           ),
           ExtremeHinge(
             height: size.height * .145,
-            width: size.width * .09,
+            width: size.width * .1,
             bottom: 0,
             right: 0,
             type: HingeType.bottom,
           ),
           HingeSmallRectangle(
             height: size.height * .0075,
-            width: size.width * .09,
+            width: size.width * .1,
             top: size.height * .847,
             right: 0,
           ),
