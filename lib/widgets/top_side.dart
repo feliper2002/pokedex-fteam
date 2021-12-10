@@ -42,33 +42,23 @@ class TopSide extends StatelessWidget {
 class _TopClip extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    // final insideRectangle = Rect.fromLTWH(
-    //   size.width * .576,
-    //   size.height * .47,
-    //   size.width * .36,
-    //   size.height * .53,
-    // );
-
-    // final roundedRect = RRect.fromRectAndCorners(insideRectangle,
-    //     topLeft: const Radius.circular(10));
-
     var path = Path()
           ..moveTo(0, 0)
           ..lineTo(0, size.height)
           ..lineTo(size.width * .41, size.height)
           ..lineTo(size.width * .57, size.height * .5)
+          // rounded corner
           ..quadraticBezierTo(
             size.width * .586,
             size.height * .47,
             size.width * .6,
             size.height * .47,
           )
+          //
           ..lineTo(size.width * 93, size.height * .47)
           ..lineTo(size.width * .93, size.height)
           ..lineTo(size.width, size.height)
           ..lineTo(size.width, 0)
-        // ..addRRect(roundedRect)
-        // ..moveTo(size.width * .576, size.height * .47)
         //
         ;
     return path;
