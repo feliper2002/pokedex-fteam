@@ -17,6 +17,11 @@ import 'package:pokedex_screen/widgets/top_side.dart';
 
 import 'widgets/led.dart';
 
+/// TODO
+///
+/// - [ ] Utilizar CustomPainter e ClipPath
+/// - [ ] Posicionar o Pikachu entre os widgets [Screen] e [ScreenFrame]
+
 class Pokedex extends StatefulWidget {
   const Pokedex({Key? key}) : super(key: key);
 
