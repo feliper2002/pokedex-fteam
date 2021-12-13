@@ -9,8 +9,7 @@ import 'package:pokedex_screen/widgets/hinge/middle_hinge.dart';
 import 'package:pokedex_screen/widgets/hinge/extreme_hinge.dart';
 import 'package:pokedex_screen/widgets/lamp.dart';
 import 'package:pokedex_screen/widgets/light_lamp.dart';
-import 'package:pokedex_screen/widgets/pikachu/eye.dart';
-import 'package:pokedex_screen/widgets/pikachu/body.dart';
+import 'package:pokedex_screen/widgets/pikachu/pikachu.dart';
 import 'package:pokedex_screen/widgets/screen.dart';
 import 'package:pokedex_screen/widgets/screen_frame.dart';
 import 'package:pokedex_screen/widgets/top_side.dart';
@@ -19,7 +18,7 @@ import 'widgets/led.dart';
 
 /// TODO
 ///
-/// - [ ] Utilizar CustomPainter e ClipPath
+/// - [ ] Utilizar CustomPainter e ClipPath para desenhar [Pikachu]
 /// - [ ] Posicionar o Pikachu entre os widgets [Screen] e [ScreenFrame]
 
 class Pokedex extends StatefulWidget {
@@ -80,6 +79,14 @@ class _PokedexState extends State<Pokedex> {
               width: size.width * .626,
             ),
           ),
+          ///////////////////////// [PIKACHU] ////////////////////
+          PikachuBody(
+            top: size.height * .44,
+            left: size.width * .24,
+            height: size.height * .18,
+            width: size.width * .4,
+          ),
+          ///////////////////////// [PIKACHU] ////////////////////
           AnalogicButton(
             bottom: size.height * .18,
             left: size.width * .07,
