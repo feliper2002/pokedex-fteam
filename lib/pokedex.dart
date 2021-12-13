@@ -80,7 +80,7 @@ class _PokedexState extends State<Pokedex> {
             ),
           ),
           ///////////////////////// [PIKACHU] ////////////////////
-          PikachuBody(
+          Pikachu(
             top: size.height * .44,
             left: size.width * .24,
             height: size.height * .18,

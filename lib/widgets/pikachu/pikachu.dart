@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_screen/colors/colors.dart';
 
-// enum BodyType { face, leftArm, rightArm }
-
-class PikachuBody extends StatelessWidget {
+class Pikachu extends StatelessWidget {
   final double height;
   final double width;
   final double? top;
@@ -11,7 +9,7 @@ class PikachuBody extends StatelessWidget {
   final double? left;
   final double? right;
   final Color color;
-  const PikachuBody({
+  const Pikachu({
     Key? key,
     this.height = 120.5,
     this.width = 150.88,
@@ -138,6 +136,41 @@ class _PikachuPaint extends CustomPainter {
     canvas.drawOval(noseRect, noseBody);
 
     ////////////////////////// [NOSE] ///////////////////////////////
+    ///
+    ////////////////////////// [MOUTH] ///////////////////////////////
+
+    final mouthDimensions = Offset(size.width * .158, size.height * .03);
+
+    final mouthPosition = Offset(size.width * .47, size.height * .653);
+
+    final mouthRect = Rect.fromLTWH(
+      mouthPosition.dx,
+      mouthPosition.dy,
+      mouthDimensions.dx,
+      mouthDimensions.dy,
+    );
+
+    final mouthArcPoints = Offset(size.width * .52, size.height * .82);
+    final mouthPaint = Paint()
+          ..color = Colors.black
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke
+        //
+        ;
+
+    canvas.drawArc(
+        mouthRect, mouthArcPoints.dx, mouthArcPoints.dy, true, mouthPaint);
+
+    ////////////////////////// [MOUTH] ///////////////////////////////
+    ///
+    ////////////////////////// [EARS] ///////////////////////////////
+    ////////////////////////// [EARS] ///////////////////////////////
+    ///
+    ////////////////////////// [ARMS] ///////////////////////////////
+    ////////////////////////// [ARMS] ///////////////////////////////
+    ///
+    ////////////////////////// [CHEEKS] ///////////////////////////////
+    ////////////////////////// [CHEEKS] ///////////////////////////////
   }
 
   @override
