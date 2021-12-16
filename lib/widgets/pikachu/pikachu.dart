@@ -11,8 +11,8 @@ class Pikachu extends StatelessWidget {
   final Color color;
   const Pikachu({
     Key? key,
-    this.height = 120.5,
-    this.width = 150.88,
+    this.height = 121,
+    this.width = 151,
     this.top,
     this.bottom,
     this.left,
@@ -61,9 +61,11 @@ class _PikachuPaint extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     ////////////////////////// [BODY PARTS] ///////////////////////////////
 
-    final centerPoint = Offset(size.width * .5, size.height * .5);
+    final centerPoint = Offset(size.width * .59, size.height * .57);
     final circle = Rect.fromCenter(
-        center: centerPoint, height: size.height, width: size.width);
+        center: centerPoint,
+        height: size.height * .55,
+        width: size.width * .56);
 
     final paintBody = Paint()..color = AppColors.pikachuMainColor;
     canvas.drawOval(circle, paintBody);
@@ -139,18 +141,6 @@ class _PikachuPaint extends CustomPainter {
     ///
     ////////////////////////// [MOUTH] ///////////////////////////////
 
-    final mouthDimensions = Offset(size.width * .158, size.height * .03);
-
-    final mouthPosition = Offset(size.width * .47, size.height * .653);
-
-    final mouthRect = Rect.fromLTWH(
-      mouthPosition.dx,
-      mouthPosition.dy,
-      mouthDimensions.dx,
-      mouthDimensions.dy,
-    );
-
-    final mouthArcPoints = Offset(size.width * .52, size.height * .82);
     final mouthPaint = Paint()
           ..color = Colors.black
           ..strokeWidth = 2
@@ -158,8 +148,16 @@ class _PikachuPaint extends CustomPainter {
         //
         ;
 
-    canvas.drawArc(
-        mouthRect, mouthArcPoints.dx, mouthArcPoints.dy, true, mouthPaint);
+    final mouthPath = Path()
+          ..moveTo(size.width * .5, size.height * .65)
+          ..quadraticBezierTo(size.width * .52, size.height * .68,
+              size.width * .57, size.height * .644)
+          ..quadraticBezierTo(size.width * .61, size.height * .68,
+              size.width * .662, size.height * .67)
+        //
+        ;
+
+    canvas.drawPath(mouthPath, mouthPaint);
 
     ////////////////////////// [MOUTH] ///////////////////////////////
     ///
