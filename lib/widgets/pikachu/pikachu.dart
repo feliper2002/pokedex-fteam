@@ -128,7 +128,7 @@ class _PikachuPaint extends CustomPainter {
 
     final noseDimensions = Offset(size.width * .0247, size.height * .01385);
 
-    final noseCenterPoint = Offset(size.width * .52, size.height * .6157);
+    final noseCenterPoint = Offset(size.width * .56, size.height * .61);
     final noseRect = Rect.fromCenter(
         center: noseCenterPoint,
         width: noseDimensions.dx,
@@ -162,6 +162,36 @@ class _PikachuPaint extends CustomPainter {
     ////////////////////////// [MOUTH] ///////////////////////////////
     ///
     ////////////////////////// [EARS] ///////////////////////////////
+
+    final earOvalPaint = Paint()..color = AppColors.pikachuMainColor;
+    final earOvalStroke = Paint()
+          ..color = Colors.black
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke
+        //
+        ;
+
+    //////// {LEFT EAR} ////////
+    final leftTopEarPos = Offset(size.width, 0);
+    final earLeftRect =
+        Rect.fromLTWH(leftTopEarPos.dx, leftTopEarPos.dy, 24, 76);
+
+    canvas.drawOval(earLeftRect, earOvalPaint);
+    canvas.drawOval(earLeftRect, earOvalStroke);
+    //////// {LEFT EAR} ////////
+
+    //////// {RIGHT EAR} ////////
+
+    const rightTopEarPos = Offset(0, 0);
+
+    final earRightRect =
+        Rect.fromLTWH(rightTopEarPos.dx, rightTopEarPos.dy, 24, 76);
+
+    canvas.drawOval(earRightRect, earOvalPaint);
+    canvas.drawOval(earRightRect, earOvalStroke);
+
+    //////// {RIGHT EAR} ////////
+
     ////////////////////////// [EARS] ///////////////////////////////
     ///
     ////////////////////////// [ARMS] ///////////////////////////////
