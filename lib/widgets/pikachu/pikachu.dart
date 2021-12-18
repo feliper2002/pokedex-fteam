@@ -22,24 +22,6 @@ class Pikachu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // switch (type) {
-    //   case BodyType.face:
-    //     bodyHeight = 67;
-    //     bodyWidth = 85;
-    //     break;
-    //   case BodyType.leftArm:
-    //     bodyHeight = 19.8;
-    //     bodyWidth = 43.17;
-    //     break;
-    //   case BodyType.rightArm:
-    //     bodyHeight = 25.6;
-    //     bodyWidth = 39;
-    //     break;
-    //   default:
-    //     bodyHeight = height;
-    //     bodyWidth = width;
-    // }
-
     return Positioned(
       top: top,
       bottom: bottom,
@@ -59,7 +41,7 @@ class Pikachu extends StatelessWidget {
 class _PikachuPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    ////////////////////////// [BODY PARTS] ///////////////////////////////
+    ////////////////////////// [HEAD] ///////////////////////////////
 
     final centerPoint = Offset(size.width * .59, size.height * .57);
     final circle = Rect.fromCenter(
@@ -77,7 +59,7 @@ class _PikachuPaint extends CustomPainter {
         //
         ;
     canvas.drawOval(circle, strokeCirclePaint);
-    ////////////////////////// [BODY PARTS] ///////////////////////////////
+    ////////////////////////// [HEAD] ///////////////////////////////
     ///
     ////////////////////////// [EYE] ///////////////////////////////
 
@@ -87,7 +69,7 @@ class _PikachuPaint extends CustomPainter {
     ///////////// {LEFT} /////////////
 
     //// [LEFT] Eye black ball draw
-    final eyeCenterPointLeft = Offset(size.width * .37, size.height * .486);
+    final eyeCenterPointLeft = Offset(size.width * .42, size.height * .486);
     final eyeRectLeft = Rect.fromCenter(
         center: eyeCenterPointLeft,
         width: blackIrisDimensions.dx,
@@ -98,7 +80,7 @@ class _PikachuPaint extends CustomPainter {
 
     /// Eye small pupil [left]
     final eyePupilLeft = Paint()..color = Colors.white;
-    canvas.drawCircle(Offset(size.width * .38, size.height * .47),
+    canvas.drawCircle(Offset(size.width * .43, size.height * .47),
         smallWhiteBalls, eyePupilLeft);
 
     ///////////// {LEFT} /////////////
@@ -106,7 +88,7 @@ class _PikachuPaint extends CustomPainter {
     ///////////// {RIGHT} /////////////
 
     //// [RIGHT] Eye black ball draw
-    final eyeCenterPointRight = Offset(size.width * .644, size.height * .486);
+    final eyeCenterPointRight = Offset(size.width * .7, size.height * .486);
     final eyeRectRight = Rect.fromCenter(
         center: eyeCenterPointRight,
         width: blackIrisDimensions.dx,
@@ -117,7 +99,7 @@ class _PikachuPaint extends CustomPainter {
 
     /// Eye small pupil [right]
     final eyePupilRight = Paint()..color = Colors.white;
-    canvas.drawCircle(Offset(size.width * .64, size.height * .47),
+    canvas.drawCircle(Offset(size.width * .69, size.height * .47),
         smallWhiteBalls, eyePupilRight);
 
     ///////////// {RIGHT} /////////////
@@ -172,7 +154,7 @@ class _PikachuPaint extends CustomPainter {
         ;
 
     //////// {LEFT EAR} ////////
-    final leftTopEarPos = Offset(size.width, 0);
+    final leftTopEarPos = Offset(size.width * .24, 0);
     final earLeftRect =
         Rect.fromLTWH(leftTopEarPos.dx, leftTopEarPos.dy, 24, 76);
 
@@ -182,7 +164,7 @@ class _PikachuPaint extends CustomPainter {
 
     //////// {RIGHT EAR} ////////
 
-    const rightTopEarPos = Offset(0, 0);
+    final rightTopEarPos = Offset(size.width * .72, 0);
 
     final earRightRect =
         Rect.fromLTWH(rightTopEarPos.dx, rightTopEarPos.dy, 24, 76);
