@@ -57,7 +57,8 @@ class _PikachuPaint extends CustomPainter {
         width: size.width * .56);
 
     final paintBody = Paint()..color = AppColors.pikachuMainColor;
-    canvas.drawOval(circle, paintBody);
+    final bodyPath = Path()..addOval(circle);
+    canvas.drawPath(bodyPath, paintBody);
 
     final strokeCirclePaint = Paint()
           ..color = Colors.black
@@ -167,7 +168,6 @@ class _PikachuPaint extends CustomPainter {
 
     canvas.drawOval(earLeftRect, earOvalPaint);
     canvas.drawOval(earLeftRect, earOvalStroke);
-    // canvas.rotate(rotateRadians(10));
     //////// {LEFT EAR} ////////
 
     //////// {RIGHT EAR} ////////
@@ -193,7 +193,7 @@ class _PikachuPaint extends CustomPainter {
     ////////////////////////// [CHEEKS] ///////////////////////////////
 
     final cheeksPaint = Paint()..color = AppColors.pikachuCheeks;
-    final cheeksRadius = size.width * .11;
+    final cheeksRadius = size.width * .07;
 
     //////// {LEFT CHEEK} ////////
 
@@ -205,7 +205,7 @@ class _PikachuPaint extends CustomPainter {
         //
         ;
     canvas.drawPath(
-        Path.combine(PathOperation.difference, leftCirclePath, Path()),
+        Path.combine(PathOperation.intersect, leftCirclePath, bodyPath),
         cheeksPaint);
 
     //////// {LEFT CHEEK} ////////
@@ -220,12 +220,39 @@ class _PikachuPaint extends CustomPainter {
         //
         ;
     canvas.drawPath(
-        Path.combine(PathOperation.difference, rightCirclePath, Path()),
+        Path.combine(PathOperation.intersect, rightCirclePath, bodyPath),
         cheeksPaint);
 
     //////// {RIGHT CHEEK} ////////
 
     ////////////////////////// [CHEEKS] ///////////////////////////////
+
+    ////////////////////////// [TAIL] ///////////////////////////////
+
+    final tailPaint = Paint()..color = AppColors.pikachuMainColor;
+    final tailPaintStroke = Paint()
+          ..color = Colors.black
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke
+        //
+        ;
+
+    final tailPath = Path()
+          ..moveTo(0, size.height * .09)
+          ..lineTo(size.width * .1, size.height * .5)
+          ..lineTo(size.width * .25, size.height * .58)
+          ..lineTo(size.width * .23, size.height * .73)
+          ..lineTo(size.width * .35, size.height * .8)
+          ..lineTo(size.width * .35, size.height * .37)
+        //
+        ;
+
+    canvas.drawPath(tailPath, tailPaint);
+    canvas.drawPath(tailPath, tailPaintStroke);
+    canvas.drawPath(
+        Path.combine(PathOperation.difference, tailPath, bodyPath), tailPaint);
+
+    ////////////////////////// [TAIL] ///////////////////////////////
   }
 
   @override
