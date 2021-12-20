@@ -14,7 +14,7 @@ class Pikachu extends StatelessWidget {
   const Pikachu({
     Key? key,
     this.height = 121,
-    this.width = 151,
+    this.width = 158,
     this.top,
     this.bottom,
     this.left,
@@ -46,8 +46,39 @@ class _PikachuPaint extends CustomPainter {
     return radians;
   }
 
+  void _rotate(Canvas canvas, double y, double x, double degrees) {
+    canvas.translate(x, y);
+    canvas.rotate(rotateRadians(degrees));
+    canvas.translate(-x, -y);
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
+    ////////////////////////// [TAIL] ///////////////////////////////
+
+    final tailPaint = Paint()..color = AppColors.pikachuMainColor;
+    final tailPaintStroke = Paint()..color = Colors.black
+        //
+        ;
+
+    final tailPath = Path()
+          ..moveTo(0, size.height * .09)
+          ..lineTo(size.width * .1, size.height * .5)
+          ..lineTo(size.width * .25, size.height * .58)
+          ..lineTo(size.width * .23, size.height * .73)
+          ..lineTo(size.width * .35, size.height * .8)
+          ..lineTo(size.width * .35, size.height * .37)
+        //
+        ;
+
+    canvas.save();
+    _rotate(canvas, size.width * .5, size.height * .3, -15);
+    canvas.drawPath(tailPath, tailPaintStroke);
+    canvas.drawPath(tailPath, tailPaint);
+    canvas.restore();
+
+    ////////////////////////// [TAIL] ///////////////////////////////
+
     ////////////////////////// [HEAD] ///////////////////////////////
 
     final centerPoint = Offset(size.width * .59, size.height * .57);
@@ -77,7 +108,7 @@ class _PikachuPaint extends CustomPainter {
     ///////////// {LEFT} /////////////
 
     //// [LEFT] Eye black ball draw
-    final eyeCenterPointLeft = Offset(size.width * .44, size.height * .486);
+    final eyeCenterPointLeft = Offset(size.width * .44, size.height * .53);
     final eyeRectLeft = Rect.fromCenter(
         center: eyeCenterPointLeft,
         width: blackIrisDimensions.dx,
@@ -88,7 +119,7 @@ class _PikachuPaint extends CustomPainter {
 
     /// Eye small pupil [left]
     final eyePupilLeft = Paint()..color = Colors.white;
-    canvas.drawCircle(Offset(size.width * .45, size.height * .47),
+    canvas.drawCircle(Offset(size.width * .45, size.height * .5),
         smallWhiteBalls, eyePupilLeft);
 
     ///////////// {LEFT} /////////////
@@ -96,7 +127,7 @@ class _PikachuPaint extends CustomPainter {
     ///////////// {RIGHT} /////////////
 
     //// [RIGHT] Eye black ball draw
-    final eyeCenterPointRight = Offset(size.width * .73, size.height * .486);
+    final eyeCenterPointRight = Offset(size.width * .73, size.height * .53);
     final eyeRectRight = Rect.fromCenter(
         center: eyeCenterPointRight,
         width: blackIrisDimensions.dx,
@@ -107,7 +138,7 @@ class _PikachuPaint extends CustomPainter {
 
     /// Eye small pupil [right]
     final eyePupilRight = Paint()..color = Colors.white;
-    canvas.drawCircle(Offset(size.width * .72, size.height * .47),
+    canvas.drawCircle(Offset(size.width * .72, size.height * .5),
         smallWhiteBalls, eyePupilRight);
 
     ///////////// {RIGHT} /////////////
@@ -154,10 +185,7 @@ class _PikachuPaint extends CustomPainter {
     ////////////////////////// [EARS] ///////////////////////////////
 
     final earOvalPaint = Paint()..color = AppColors.pikachuMainColor;
-    final earOvalStroke = Paint()
-          ..color = Colors.black
-          ..strokeWidth = 2
-          ..style = PaintingStyle.stroke
+    final earOvalStroke = Paint()..color = Colors.black
         //
         ;
 
@@ -166,19 +194,40 @@ class _PikachuPaint extends CustomPainter {
     final earLeftRect =
         Rect.fromLTWH(leftTopEarPos.dx, leftTopEarPos.dy, 24, 76);
 
-    canvas.drawOval(earLeftRect, earOvalPaint);
-    canvas.drawOval(earLeftRect, earOvalStroke);
+    final leftEarPath = Path()..addOval(earLeftRect)
+
+        //
+        ;
+
+    // canvas.save();
+    // _rotate(canvas, size.width * .24, size.height * .25, -47.5);
+    // canvas.drawOval(earLeftRect, earOvalPaint);
+    // canvas.restore();
     //////// {LEFT EAR} ////////
 
     //////// {RIGHT EAR} ////////
 
-    final rightTopEarPos = Offset(size.width * .78, 0);
+    final rightTopEarPos = Offset(size.width * .9, size.height * .2);
+    final rightElipseEarPos = Offset(size.width * .75, size.height * .2);
 
     final earRightRect =
-        Rect.fromLTWH(rightTopEarPos.dx, rightTopEarPos.dy, 24, 76);
+        Rect.fromCenter(center: rightTopEarPos, width: 24, height: 76);
 
-    canvas.drawOval(earRightRect, earOvalPaint);
-    canvas.drawOval(earRightRect, earOvalStroke);
+    final earElipse =
+        Rect.fromCenter(center: rightElipseEarPos, width: 57, height: 72);
+
+    final elipsePath = Path()..addOval(earElipse);
+
+    /// Elipse grande de corte
+    canvas.drawPath(elipsePath, earOvalPaint);
+
+    canvas.save();
+    _rotate(canvas, size.width * .2, size.height, 47.5);
+    final rightEarPath = Path()..addOval(earRightRect);
+    // canvas.drawPath(rightEarPath, earOvalStroke); // preta
+    canvas.drawPath(rightEarPath, earOvalPaint); // amarela
+    canvas.restore();
+    Path.combine(PathOperation.intersect, rightEarPath, elipsePath);
 
     //////// {RIGHT EAR} ////////
 
@@ -226,33 +275,6 @@ class _PikachuPaint extends CustomPainter {
     //////// {RIGHT CHEEK} ////////
 
     ////////////////////////// [CHEEKS] ///////////////////////////////
-
-    ////////////////////////// [TAIL] ///////////////////////////////
-
-    final tailPaint = Paint()..color = AppColors.pikachuMainColor;
-    final tailPaintStroke = Paint()
-          ..color = Colors.black
-          ..strokeWidth = 2
-          ..style = PaintingStyle.stroke
-        //
-        ;
-
-    final tailPath = Path()
-          ..moveTo(0, size.height * .09)
-          ..lineTo(size.width * .1, size.height * .5)
-          ..lineTo(size.width * .25, size.height * .58)
-          ..lineTo(size.width * .23, size.height * .73)
-          ..lineTo(size.width * .35, size.height * .8)
-          ..lineTo(size.width * .35, size.height * .37)
-        //
-        ;
-
-    canvas.drawPath(tailPath, tailPaint);
-    canvas.drawPath(tailPath, tailPaintStroke);
-    canvas.drawPath(
-        Path.combine(PathOperation.difference, tailPath, bodyPath), tailPaint);
-
-    ////////////////////////// [TAIL] ///////////////////////////////
   }
 
   @override
