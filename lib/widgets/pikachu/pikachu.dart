@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pokedex_screen/colors/colors.dart';
 
@@ -39,6 +41,11 @@ class Pikachu extends StatelessWidget {
 }
 
 class _PikachuPaint extends CustomPainter {
+  double rotateRadians(double degrees) {
+    final radians = degrees * (pi / 180);
+    return radians;
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     ////////////////////////// [HEAD] ///////////////////////////////
@@ -69,7 +76,7 @@ class _PikachuPaint extends CustomPainter {
     ///////////// {LEFT} /////////////
 
     //// [LEFT] Eye black ball draw
-    final eyeCenterPointLeft = Offset(size.width * .42, size.height * .486);
+    final eyeCenterPointLeft = Offset(size.width * .44, size.height * .486);
     final eyeRectLeft = Rect.fromCenter(
         center: eyeCenterPointLeft,
         width: blackIrisDimensions.dx,
@@ -80,7 +87,7 @@ class _PikachuPaint extends CustomPainter {
 
     /// Eye small pupil [left]
     final eyePupilLeft = Paint()..color = Colors.white;
-    canvas.drawCircle(Offset(size.width * .43, size.height * .47),
+    canvas.drawCircle(Offset(size.width * .45, size.height * .47),
         smallWhiteBalls, eyePupilLeft);
 
     ///////////// {LEFT} /////////////
@@ -88,7 +95,7 @@ class _PikachuPaint extends CustomPainter {
     ///////////// {RIGHT} /////////////
 
     //// [RIGHT] Eye black ball draw
-    final eyeCenterPointRight = Offset(size.width * .7, size.height * .486);
+    final eyeCenterPointRight = Offset(size.width * .73, size.height * .486);
     final eyeRectRight = Rect.fromCenter(
         center: eyeCenterPointRight,
         width: blackIrisDimensions.dx,
@@ -99,7 +106,7 @@ class _PikachuPaint extends CustomPainter {
 
     /// Eye small pupil [right]
     final eyePupilRight = Paint()..color = Colors.white;
-    canvas.drawCircle(Offset(size.width * .69, size.height * .47),
+    canvas.drawCircle(Offset(size.width * .72, size.height * .47),
         smallWhiteBalls, eyePupilRight);
 
     ///////////// {RIGHT} /////////////
@@ -110,7 +117,7 @@ class _PikachuPaint extends CustomPainter {
 
     final noseDimensions = Offset(size.width * .0247, size.height * .01385);
 
-    final noseCenterPoint = Offset(size.width * .56, size.height * .61);
+    final noseCenterPoint = Offset(size.width * .576, size.height * .61);
     final noseRect = Rect.fromCenter(
         center: noseCenterPoint,
         width: noseDimensions.dx,
@@ -160,11 +167,12 @@ class _PikachuPaint extends CustomPainter {
 
     canvas.drawOval(earLeftRect, earOvalPaint);
     canvas.drawOval(earLeftRect, earOvalStroke);
+    // canvas.rotate(rotateRadians(10));
     //////// {LEFT EAR} ////////
 
     //////// {RIGHT EAR} ////////
 
-    final rightTopEarPos = Offset(size.width * .72, 0);
+    final rightTopEarPos = Offset(size.width * .78, 0);
 
     final earRightRect =
         Rect.fromLTWH(rightTopEarPos.dx, rightTopEarPos.dy, 24, 76);
@@ -185,6 +193,37 @@ class _PikachuPaint extends CustomPainter {
     ////////////////////////// [CHEEKS] ///////////////////////////////
 
     final cheeksPaint = Paint()..color = AppColors.pikachuCheeks;
+    final cheeksRadius = size.width * .11;
+
+    //////// {LEFT CHEEK} ////////
+
+    final cheeksLeftPosition = Offset(size.width * .354, size.height * .694);
+
+    final leftCirclePath = Path()
+          ..addOval(
+              Rect.fromCircle(center: cheeksLeftPosition, radius: cheeksRadius))
+        //
+        ;
+    canvas.drawPath(
+        Path.combine(PathOperation.difference, leftCirclePath, Path()),
+        cheeksPaint);
+
+    //////// {LEFT CHEEK} ////////
+
+    //////// {RIGHT CHEEK} ////////
+
+    final cheeksRightPosition = Offset(size.width * .82, size.height * .694);
+
+    final rightCirclePath = Path()
+          ..addOval(Rect.fromCircle(
+              center: cheeksRightPosition, radius: cheeksRadius))
+        //
+        ;
+    canvas.drawPath(
+        Path.combine(PathOperation.difference, rightCirclePath, Path()),
+        cheeksPaint);
+
+    //////// {RIGHT CHEEK} ////////
 
     ////////////////////////// [CHEEKS] ///////////////////////////////
   }
