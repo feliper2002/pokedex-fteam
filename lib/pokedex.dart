@@ -81,7 +81,7 @@ class _PokedexState extends State<Pokedex> {
           ),
           ///////////////////////// [PIKACHU] ////////////////////
           Pikachu(
-            top: size.height * .44,
+            top: size.height * .45,
             left: size.width * .24,
             height: size.height * .18,
             width: size.width * .4,

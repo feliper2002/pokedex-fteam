@@ -207,37 +207,32 @@ class _PikachuPaint extends CustomPainter {
 
     //////// {RIGHT EAR} ////////
 
-    final rightTopEarPos = Offset(size.width * .9, size.height * .2);
+    final rightTopEarPos = Offset(size.width * .86, size.height * .2);
     final rightElipseEarPos = Offset(size.width * .75, size.height * .2);
 
     final earRightRect =
         Rect.fromCenter(center: rightTopEarPos, width: 24, height: 76);
-
     final earElipse =
         Rect.fromCenter(center: rightElipseEarPos, width: 57, height: 72);
 
     final elipsePath = Path()..addOval(earElipse);
+    final rightEarPath = Path()..addOval(earRightRect);
 
     /// Elipse grande de corte
-    canvas.drawPath(elipsePath, earOvalPaint);
+    // canvas.drawPath(elipsePath, earOvalPaint);
 
     canvas.save();
     _rotate(canvas, size.width * .2, size.height, 47.5);
-    final rightEarPath = Path()..addOval(earRightRect);
     // canvas.drawPath(rightEarPath, earOvalStroke); // preta
-    canvas.drawPath(rightEarPath, earOvalPaint); // amarela
+    // canvas.drawPath(rightEarPath, earOvalPaint); // amarela
+    canvas.drawPath(
+        Path.combine(PathOperation.intersect, rightEarPath, elipsePath),
+        earOvalStroke);
     canvas.restore();
-    Path.combine(PathOperation.intersect, rightEarPath, elipsePath);
 
     //////// {RIGHT EAR} ////////
 
     ////////////////////////// [EARS] ///////////////////////////////
-    ///
-    ////////////////////////// [ARMS] ///////////////////////////////
-
-    final armPaint = Paint()..color = AppColors.pikachuMainColor;
-
-    ////////////////////////// [ARMS] ///////////////////////////////
     ///
     ////////////////////////// [CHEEKS] ///////////////////////////////
 
@@ -275,6 +270,55 @@ class _PikachuPaint extends CustomPainter {
     //////// {RIGHT CHEEK} ////////
 
     ////////////////////////// [CHEEKS] ///////////////////////////////
+    ///
+    ////////////////////////// [ARMS] ///////////////////////////////
+
+    final armPaint = Paint()..color = AppColors.pikachuMainColor;
+    final armStroke = Paint()
+          ..color = Colors.black
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
+        //
+        ;
+
+    //////// {LEFT ARM} ////////
+
+    final leftArmDimensions = Offset(size.width * .25, size.height * .19);
+    final leftArmPosition = Offset(size.width * .43, size.height * .8);
+
+    final leftArm = Rect.fromCenter(
+        center: leftArmPosition,
+        width: leftArmDimensions.dx,
+        height: leftArmDimensions.dy);
+
+    canvas.save();
+    _rotate(canvas, leftArmPosition.dx, leftArmPosition.dy, -3);
+    canvas.drawOval(leftArm, armPaint);
+    canvas.drawOval(leftArm, armStroke);
+    canvas.restore();
+
+    //////// {LEFT ARM} ////////
+
+    //////// {RIGHT ARM} ////////
+
+    final rightArmDimensions = Offset(size.width * .27, size.height * .17);
+    final rightArmPosition = Offset(size.width * .74, size.height * .77);
+
+    final rightArm = Rect.fromCenter(
+        center: rightArmPosition,
+        width: rightArmDimensions.dx,
+        height: rightArmDimensions.dy);
+
+    canvas.save();
+    _rotate(canvas, rightArmPosition.dx, rightArmPosition.dy, -3);
+    canvas.drawOval(rightArm, armPaint);
+    canvas.drawOval(rightArm, armStroke);
+    canvas.restore();
+
+    //////// {RIGHT ARM} ////////
+
+    ////////////////////////// [ARMS] ///////////////////////////////
+    ///
   }
 
   @override
