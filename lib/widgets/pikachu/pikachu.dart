@@ -199,10 +199,10 @@ class _PikachuPaint extends CustomPainter {
         //
         ;
 
-    // canvas.save();
-    // _rotate(canvas, size.width * .24, size.height * .25, -47.5);
-    // canvas.drawOval(earLeftRect, earOvalPaint);
-    // canvas.restore();
+    canvas.save();
+    _rotate(canvas, size.width * .24, size.height * .25, -47.5);
+    canvas.drawOval(earLeftRect, earOvalPaint);
+    canvas.restore();
     //////// {LEFT EAR} ////////
 
     //////// {RIGHT EAR} ////////
