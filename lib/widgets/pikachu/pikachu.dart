@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:pokedex_screen/colors/colors.dart';
@@ -52,17 +53,33 @@ class _PikachuPaint extends CustomPainter {
     canvas.translate(-x, -y);
   }
 
+  Float64List _rotatePath(Offset origin, double degrees) {
+    Matrix4 matrix = Matrix4.identity();
+
+    var m = matrix
+      ..clone()
+      ..translate(origin.dx, origin.dy)
+      ..multiply(Matrix4.rotationZ(rotateRadians(degrees)))
+      ..translate(-origin.dx, -origin.dy);
+
+    return m.storage;
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     ////////////////////////// [TAIL] ///////////////////////////////
 
     final tailPaint = Paint()..color = AppColors.pikachuMainColor;
-    final tailPaintStroke = Paint()..color = Colors.black
+    final tailPaintStroke = Paint()
+          ..color = Colors.black
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
         //
         ;
+    final tailPos = Offset(0, size.height * .09);
 
-    final tailPath = Path()
-          ..moveTo(0, size.height * .09)
+    Path tailPath = Path()
+          ..moveTo(tailPos.dx, tailPos.dy)
           ..lineTo(size.width * .1, size.height * .5)
           ..lineTo(size.width * .25, size.height * .58)
           ..lineTo(size.width * .23, size.height * .73)
@@ -71,11 +88,10 @@ class _PikachuPaint extends CustomPainter {
         //
         ;
 
-    canvas.save();
-    _rotate(canvas, size.width * .5, size.height * .3, -15);
-    canvas.drawPath(tailPath, tailPaintStroke);
+    tailPath = tailPath.transform(_rotatePath(tailPos, -3));
+
     canvas.drawPath(tailPath, tailPaint);
-    canvas.restore();
+    canvas.drawPath(tailPath, tailPaintStroke);
 
     ////////////////////////// [TAIL] ///////////////////////////////
 
@@ -185,50 +201,59 @@ class _PikachuPaint extends CustomPainter {
     ////////////////////////// [EARS] ///////////////////////////////
 
     final earOvalPaint = Paint()..color = AppColors.pikachuMainColor;
-    final earOvalStroke = Paint()..color = Colors.black
-        //
-        ;
+    final earOvalStroke = Paint()..color = Colors.black;
 
     //////// {LEFT EAR} ////////
-    final leftTopEarPos = Offset(size.width * .24, 0);
-    final earLeftRect =
-        Rect.fromLTWH(leftTopEarPos.dx, leftTopEarPos.dy, 24, 76);
+    final leftTopEarPos = Offset(size.width * .3, size.height * .19);
+    final leftElipseEarPos = Offset(size.width * .35, size.height * .36);
 
-    final leftEarPath = Path()..addOval(earLeftRect)
+    final earLeftRect = Rect.fromCenter(
+        center: leftTopEarPos,
+        width: size.width * .15,
+        height: size.height * .62);
+    final earLeftElipse = Rect.fromCenter(
+        center: leftElipseEarPos,
+        width: size.width * .36,
+        height: size.height * .6);
 
-        //
-        ;
+    Path leftEarPath = Path()..addOval(earLeftRect);
+    Path elipseLeftPath = Path()..addOval(earLeftElipse);
 
-    canvas.save();
-    _rotate(canvas, size.width * .24, size.height * .25, -47.5);
-    canvas.drawOval(earLeftRect, earOvalPaint);
-    canvas.restore();
+    leftEarPath = leftEarPath.transform(_rotatePath(leftTopEarPos, -47));
+
+    canvas.drawPath(leftEarPath, earOvalStroke);
+
+    canvas.drawPath(
+        Path.combine(PathOperation.intersect, leftEarPath, elipseLeftPath),
+        earOvalPaint);
+
     //////// {LEFT EAR} ////////
 
     //////// {RIGHT EAR} ////////
 
-    final rightTopEarPos = Offset(size.width * .86, size.height * .2);
-    final rightElipseEarPos = Offset(size.width * .75, size.height * .2);
+    final rightTopEarPos = Offset(size.width * .85, size.height * .19);
+    final rightElipseEarPos = Offset(size.width * .75, size.height * .23);
 
-    final earRightRect =
-        Rect.fromCenter(center: rightTopEarPos, width: 24, height: 76);
-    final earElipse =
-        Rect.fromCenter(center: rightElipseEarPos, width: 57, height: 72);
+    final earRightRect = Rect.fromCenter(
+        center: rightTopEarPos,
+        width: size.width * .15,
+        height: size.height * .62);
+    final earRightElipse = Rect.fromCenter(
+        center: rightElipseEarPos,
+        width: size.width * .36,
+        height: size.height * .6);
 
-    final elipsePath = Path()..addOval(earElipse);
-    final rightEarPath = Path()..addOval(earRightRect);
+    Path elipseRightPath = Path()..addOval(earRightElipse);
 
-    /// Elipse grande de corte
-    // canvas.drawPath(elipsePath, earOvalPaint);
+    Path rightEarPath = Path()..addOval(earRightRect);
 
-    canvas.save();
-    _rotate(canvas, size.width * .2, size.height, 47.5);
-    // canvas.drawPath(rightEarPath, earOvalStroke); // preta
-    // canvas.drawPath(rightEarPath, earOvalPaint); // amarela
+    rightEarPath = rightEarPath.transform(_rotatePath(rightTopEarPos, 47));
+
+    canvas.drawPath(rightEarPath, earOvalStroke);
+
     canvas.drawPath(
-        Path.combine(PathOperation.intersect, rightEarPath, elipsePath),
-        earOvalStroke);
-    canvas.restore();
+        Path.combine(PathOperation.intersect, rightEarPath, elipseRightPath),
+        earOvalPaint);
 
     //////// {RIGHT EAR} ////////
 
@@ -291,11 +316,12 @@ class _PikachuPaint extends CustomPainter {
         width: leftArmDimensions.dx,
         height: leftArmDimensions.dy);
 
-    canvas.save();
-    _rotate(canvas, leftArmPosition.dx, leftArmPosition.dy, -3);
-    canvas.drawOval(leftArm, armPaint);
-    canvas.drawOval(leftArm, armStroke);
-    canvas.restore();
+    Path leftArmPath = Path()..addOval(leftArm);
+
+    leftArmPath = leftArmPath.transform(_rotatePath(leftArmPosition, 3));
+
+    canvas.drawPath(leftArmPath, armPaint);
+    canvas.drawPath(leftArmPath, armStroke);
 
     //////// {LEFT ARM} ////////
 
@@ -309,11 +335,12 @@ class _PikachuPaint extends CustomPainter {
         width: rightArmDimensions.dx,
         height: rightArmDimensions.dy);
 
-    canvas.save();
-    _rotate(canvas, rightArmPosition.dx, rightArmPosition.dy, -3);
-    canvas.drawOval(rightArm, armPaint);
-    canvas.drawOval(rightArm, armStroke);
-    canvas.restore();
+    Path rightArmPath = Path()..addOval(rightArm);
+
+    rightArmPath = rightArmPath.transform(_rotatePath(rightArmPosition, 3));
+
+    canvas.drawPath(rightArmPath, armPaint);
+    canvas.drawPath(rightArmPath, armStroke);
 
     //////// {RIGHT ARM} ////////
 
